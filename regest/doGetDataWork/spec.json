@@ -1,0 +1,25 @@
+{
+    "name": "DoWork2 > Int256",
+    "initiators": [
+      {
+        "type": "runlog",
+        "params": {
+          "address": "0x52f0a41c67D3B1e59767D067De09C72dc0c48769"
+        }
+      }
+    ],
+    "tasks": [
+      {
+        "type": "httpget"
+      },
+      {
+        "type": "jsonparse"
+      },
+      {
+        "type": "ethint256"
+      },
+      {
+        "type": "ethtx"
+      }
+    ]
+  }
