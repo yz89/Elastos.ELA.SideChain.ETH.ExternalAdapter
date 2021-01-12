@@ -2,17 +2,12 @@ const RunJSON = require('./contracts/DataSubscriber.json');
 const Web3 = require('web3');
 const web3Obj = new Web3('https://kovan.infura.io/v3/7e31d49d7c8a48f4a4539aff9da768e7');
 
-const ContractAddress = "0xad04CcF39d7AF04216BFcc2f49C30caA658C77ae";
+const ContractAddress = "0xA54fAAc3f334d9E92bB07B8Be9f3aa3Df27b8C95";
 const privateKey = "c03b0a988e2e18794f2f0e881d7ffcd340d583f63c1be078426ae09ddbdec9f5";
 
-const oracle = "0xA54fAAc3f334d9E92bB07B8Be9f3aa3Df27b8C95";
+const oracle = "0x90688d075506b69EB5fDbF7f01CfDb27130c85B2";
 const jobID = "6372a99d778147a09f039e56d30f61ba";
-
-
 const testBtcAddress = "1EzwoHtiXB4iFwedPr49iywjZn2nnekhoj";
-const testEthAddress = "0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae";
-
-
 
 const Run = new web3Obj.eth.Contract(RunJSON.abi, ContractAddress, {
   gasPrice: 1000000000, // 1gwei
