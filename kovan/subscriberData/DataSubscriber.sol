@@ -74,12 +74,12 @@ contract DataSubscriber is ChainlinkClient, Ownable {
     uint256 indexed btcScore
   );
 
-  function RequestBtcScore(address _oracle, string _jobId)
+  function RequestBtcScore(address _oracle, string _jobId,string _address)
     public
     onlyOwner
   {
     Chainlink.Request memory req = buildChainlinkRequest(stringToBytes32(_jobId), this, this.fulfillBtcScore.selector);
-    req.add("get", "http://47.52.148.190:8089/chain/watch/btcScore");
+    req.add("get", strConcat("http://47.52.148.190:8089/chain/watch/btcScore?address=",_address));
     req.add("path", "data");
     sendChainlinkRequestTo(_oracle, req, ORACLE_PAYMENT);
   }
