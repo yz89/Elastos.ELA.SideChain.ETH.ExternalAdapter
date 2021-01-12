@@ -58,7 +58,7 @@ app.get('/chain/watch/ethTimespan', (req, res) => {
 //add btc score
 app.get('/chain/watch/btcScore', (req, res) => {
 
-  watchBtcScoreChainRequest((status, result) => {
+  watchBtcScoreChainRequest(req.query.address,(status, result) => {
     
     console.log('Result: ', result)
     res.status(status).json(result)

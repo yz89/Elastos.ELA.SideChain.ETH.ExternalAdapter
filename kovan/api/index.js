@@ -1,11 +1,23 @@
 const DataConsumer = require('../../regest/callGetDataWork/contracts/DataConsumer.json');
+
+// 需要参数化
+const config = require('./config.json');
+const privateKey = config["privateKey"];
+const oracle = config["oracle"];
+const jobID = config["jobID"];
+const ContractAddress = config["contractAddress"];
+
 const Web3 = require('web3');
+const web3Http = new Web3(httpUrl);
+const ws = wsUrl;
 
+//const testBtcAddress = "1EzwoHtiXB4iFwedPr49iywjZn2nnekhoj";
+//const testEthAddress = "0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae";
 
-const ContractAddress = "0xFA0217F522217a6E279a792C5F685A52042d6243";
-
-//xxl 切换本地节点
-const ws = "ws://47.52.148.190:8546";
+const Run = new web3Http.eth.Contract(DataConsumer.abi, ContractAddress, {
+  gasPrice: 1000000000, // 1gwei
+  gasLimit: 8000000,
+});
 
 //btc balance
 const watchBtcBalanceChainRequest = (callback) =>{
@@ -62,12 +74,11 @@ const watchBtcTimespanChainRequest = (callback) =>{
       }
       callback(200,retReponse);
       
-      
   });
 
 }
 
-const watchBtcScoreChainRequest = (callback) =>{
+const watchBtcScoreChainRequest = (address,callback) =>{
 
   console.log("watch btc chain score");
 
@@ -80,6 +91,8 @@ const watchBtcScoreChainRequest = (callback) =>{
     gasPrice: 1000000000, // 1gwei
     gasLimit: 4000000,
   });
+
+  callGetDataWork(address,0);
 
   dataConsumerContract.events.RequestBtcScoreResult({
   }, function(err, data) {
@@ -96,6 +109,76 @@ const watchBtcScoreChainRequest = (callback) =>{
   });
 
 }
+
+//async function callGetDataWork(nTpye) {
+const callGetDataWork = async (address,nType) => {
+
+  var transaction = getCallMethod(address,nType);
+  const account = web3Http.eth.accounts.privateKeyToAccount(privateKey);
+
+  const options = {
+      to      : transaction._parent._address,
+      data    : transaction.encodeABI(),
+      gas     : await transaction.estimateGas({from: account.address}),
+      gasPrice: await web3Http.eth.getGasPrice() // or use some predefined value
+  };
+
+
+  const signed  = await web3Http.eth.accounts.signTransaction(options, privateKey);
+  const receipt = await web3Http.eth.sendSignedTransaction(signed.rawTransaction);
+  //console.log(receipt);
+
+};
+
+
+function getCallMethod(address,nType){
+
+  var transaction;
+
+  //RequestBtcScore 0
+  if(nType == 0){ 
+    transaction = Run.methods.RequestBtcScore(
+      oracle,
+      jobID,
+      address
+    );
+  //RequestBtcBalance 1  
+  }else if(nType == 1){
+    transaction = Run.methods.RequestBtcBalance(
+      oracle,
+      jobID,
+      address
+    );
+  //RequestBtcTimespan 2    
+  }else if(nType == 2){
+    transaction = Run.methods.RequestBtcTimespan(
+      oracle,
+      jobID,
+      address
+    );
+  //RequestEthScore 3    
+  }else if(nType == 3){
+    //TODO
+  //RequestEthBalance 4   
+  }else if(nType == 4){
+    transaction = Run.methods.RequestEthBalance(
+      oracle,
+      jobID,
+      address
+    );
+  //RequestEthTimespan 5   
+  }else if(nType == 5){
+    transaction = Run.methods.RequestEthTimespan(
+      oracle,
+      jobID,
+      address
+    );
+  }
+
+  return transaction;
+
+}
+
 
 const watchEthBalanceChainRequest = (callback) =>{
 
