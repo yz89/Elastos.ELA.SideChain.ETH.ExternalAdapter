@@ -7,12 +7,11 @@ const oracle = config["oracle"];
 const jobID = config["jobID"];
 const ContractAddress = config["contractAddress"];
 
+const httpUrl = config["httpUrl"];
+const ws = config["wsUrl"];
+
 const Web3 = require('web3');
 const web3Http = new Web3(httpUrl);
-const ws = wsUrl;
-
-//const testBtcAddress = "1EzwoHtiXB4iFwedPr49iywjZn2nnekhoj";
-//const testEthAddress = "0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae";
 
 const Run = new web3Http.eth.Contract(DataConsumer.abi, ContractAddress, {
   gasPrice: 1000000000, // 1gwei
