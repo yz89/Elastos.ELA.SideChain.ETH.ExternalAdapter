@@ -5,8 +5,8 @@ const web3Obj = new Web3('https://kovan.infura.io/v3/7e31d49d7c8a48f4a4539aff9da
 const ContractAddress = "0xad04CcF39d7AF04216BFcc2f49C30caA658C77ae";
 const privateKey = "c03b0a988e2e18794f2f0e881d7ffcd340d583f63c1be078426ae09ddbdec9f5";
 
-const oracle = "0x90688d075506b69EB5fDbF7f01CfDb27130c85B2";
-const jobID = "6372a99d778147a09f039e56d30f61ba";
+const oracle = "0x4552958c3f6a396a6785dF596Ab8EAA81c24A5B8";
+const jobID = "d8876a22c92c407db3bac0b8f949367e";
 
 
 const Run = new web3Obj.eth.Contract(RunJSON.abi, ContractAddress, {

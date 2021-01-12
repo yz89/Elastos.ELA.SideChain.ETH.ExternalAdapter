@@ -1,12 +1,12 @@
 const RunJSON = require('./contracts/DataConsumer.json');
 const Web3 = require('web3');
-const web3Obj = new Web3('http://127.0.0.1:8545');
+const web3Obj = new Web3('http://13.115.138.227:20636');
 
 //
 const ContractAddress = "0xFA0217F522217a6E279a792C5F685A52042d6243";
 const privateKey = "c03b0a988e2e18794f2f0e881d7ffcd340d583f63c1be078426ae09ddbdec9f5";
-const oracle = "0xd865fda7fb0c1ea5f5c6161eaacb2bfd08d3fa6e";
-const jobID = "0c859a2a902147ccb843885c5442b9f1";
+const oracle = "0x71fBbce34F14c2aC9ae3e9a436046DB75bFa5507";
+const jobID = "a619fa28bcff42bdba7b8fd10724e98f";
 const testBtcAddress = "1EzwoHtiXB4iFwedPr49iywjZn2nnekhoj";
 const testEthAddress = "0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae";
 
